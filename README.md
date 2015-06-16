@@ -1,5 +1,7 @@
 # cl-ezoe
 
+![](http://i.imgur.com/jA6E7Ao.png)
+
 質問ではない。
 
 ## Installation
