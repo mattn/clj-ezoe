@@ -16,6 +16,7 @@
                 #"(質問ではない。?|不?自由)" #(ansi/red (%1 1))))))
     (println))))
 
+;;; FIXME:
 (defn post-item [mes]
   (binding [clj-http.core/*cookie-store* (clj-http.cookies/cookie-store)]
     (let [token (-> "http://ask.fm/mattn_jp" URL. html-resource
