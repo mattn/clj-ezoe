@@ -7,14 +7,14 @@
             [clj-http.client :as client]))
 
 (defn list-items []
-  ((def feed (feedparser/parse-feed (str "http://ask.fm/feed/profile/" "EzoeRyou" ".rss")))
+  (def feed (feedparser/parse-feed (str "http://ask.fm/feed/profile/" "EzoeRyou" ".rss")))
   (doseq [entry (:entries feed)]
     (println (ansi/white (:uri entry)))
     (println (str "  " (ansi/blue (:title entry))))
     (let [ask (:value (:description entry))]
       (println (str "  " (clojure.string/replace ask
                 #"(質問ではない。?|不?自由)" #(ansi/red (%1 1))))))
-    (println))))
+    (println)))
 
 ;;; FIXME:
 (defn post-item [mes]
