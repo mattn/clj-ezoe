@@ -23,11 +23,12 @@
         (select [(attr= :name "authenticity_token")]) first :attrs :value)]
       (println token)
       (print (client/post "http://ask.fm/mattn_jp/questions/create"
+      ;(print (client/post "http://httpbin.org/post"
         {:form-params {
              "authenticity_token" token
              "question[question_text]" mes
-             "question[force_anonymous]" "force_anonymous"}}
-         :headers { "Referer" "http://ask.fm/mattn_jp" })))))
+             "question[force_anonymous]" "force_anonymous"}
+         :headers { "Referer" "http://ask.fm/mattn_jp" }})))))
 
 (defn -main
   "質問ではない。"
