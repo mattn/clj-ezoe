@@ -26,13 +26,15 @@
     (select (parse-html (get (client/get "http://ask.fm/mattn_jp") :body))
       [(attr= :name "authenticity_token")])) :attrs :value)]
     (println token)
-    (print (client/post "http://ask.fm/mattn_jp/questions/create"
-    ;(print (client/post "http://httpbin.org/post"
-      {:form-params {
+    (print (client/post "http://ask.fm/mattn_jp/questions/create" {
+    ;(print (client/post "http://httpbin.org/post" {
+      :content-type "application/x-www-form-urlencoded; charset=UTF-8"
+      :body (client/generate-query-string {
            "authenticity_token" token
+           "question[force_anonymous]" "force_anonymous"
            "question[question_text]" mes
-           "question[force_anonymous]" "force_anonymous"}
-       :headers { "Referer" "http://ask.fm/mattn_jp" }})))))
+           })
+      :headers { "Referer" "http://ask.fm/mattn_jp" }})))))
 
 (defn -main
   "質問ではない。"
