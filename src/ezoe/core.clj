@@ -3,17 +3,18 @@
   (:use net.cgrand.enlive-html)
   (:import java.net.URL)
   (:require [feedparser-clj.core :as feedparser]
-            [io.aviso.ansi :as ansi]
+            [jansi-clj.auto]
+            [jansi-clj.core :refer :all]
             [clj-http.client :as client]))
 
 (defn list-items []
   (def feed (feedparser/parse-feed (str "http://ask.fm/feed/profile/" "EzoeRyou" ".rss")))
   (doseq [entry (:entries feed)]
-    (println (ansi/white (:uri entry)))
-    (println (str "  " (ansi/blue (:title entry))))
+    (println (:uri entry))
+    (println (str "  " (blue (:title entry))))
     (let [ask (:value (:description entry))]
       (println (str "  " (clojure.string/replace ask
-                #"(質問ではない。?|不?自由)" #(ansi/red (%1 1))))))
+                #"(質問ではない。?|不?自由)" #(red (%1 1))))))
     (println)))
 
 (defn parse-html [html]
